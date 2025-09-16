@@ -287,20 +287,20 @@
             const paginationControls = document.getElementById('pagination-controls');
 
             const subjectColors = {
-                'Esportes': 'bg-red-500', 'Lifestyle': 'bg-pink-500', 'Humor': 'bg-yellow-500',
-                'Música': 'bg-purple-500', 'Entretenimento': 'bg-indigo-500', 'Finanças': 'bg-green-600',
-                'Investimentos': 'bg-green-700', 'Empreendedorismo': 'bg-blue-600', 'Games': 'bg-gray-800 border border-purple-500',
-                'Beleza': 'bg-rose-500', 'Família': 'bg-cyan-500', 'Moda': 'bg-fuchsia-500',
-                'Maternidade': 'bg-sky-400', 'Ilustração': 'bg-orange-500', 'Saúde & Beleza': 'bg-pink-400',
-                'Fitness': 'bg-lime-500', 'Jornalismo': 'bg-gray-500', 'Bahia': 'bg-amber-500',
-                'Dança': 'bg-violet-500', 'Ativismo': 'bg-red-600', 'Culinária': 'bg-orange-600',
-                'Viagem': 'bg-teal-500', 'Sustentabilidade': 'bg-emerald-500', 'Veganismo': 'bg-green-500',
-                'Design': 'bg-slate-500', 'default': 'bg-gray-600'
+                'Esportes': 'bg-red-800', 'Lifestyle': 'bg-pink-800', 'Humor': 'bg-yellow-800',
+                'Música': 'bg-purple-800', 'Entretenimento': 'bg-indigo-800', 'Finanças': 'bg-green-800',
+                'Investimentos': 'bg-green-900', 'Empreendedorismo': 'bg-blue-800', 'Games': 'bg-gray-800 border border-purple-500',
+                'Beleza': 'bg-rose-800', 'Família': 'bg-cyan-800', 'Moda': 'bg-fuchsia-800',
+                'Maternidade': 'bg-sky-800', 'Ilustração': 'bg-orange-800', 'Saúde & Beleza': 'bg-pink-700',
+                'Fitness': 'bg-lime-800', 'Jornalismo': 'bg-gray-700', 'Bahia': 'bg-amber-800',
+                'Dança': 'bg-violet-800', 'Ativismo': 'bg-red-900', 'Culinária': 'bg-orange-900',
+                'Viagem': 'bg-teal-800', 'Sustentabilidade': 'bg-emerald-800', 'Veganismo': 'bg-green-800',
+                'Design': 'bg-slate-700', 'default': 'bg-gray-700'
             };
 
             function getSubjectColor(subject) {
                 const color = subjectColors[subject] || subjectColors['default'];
-                return color.includes('yellow') || color.includes('lime') ? `${color} text-black` : `${color} text-white`;
+                return `${color} text-white`;
             }
 
             function formatFollowers(num) {
@@ -310,8 +310,8 @@
             }
 
             function getCategory(followers) {
-                if (followers > 7000000) return { name: 'Influencers', color: 'bg-blue-600' };
-                if (followers >= 1000000 && followers <= 6000000) return { name: 'Estrela', color: 'bg-purple-600' };
+                if (followers >= 15000000) return { name: 'Estrela', color: 'bg-purple-600' };
+                if (followers >= 1000000 && followers < 15000000) return { name: 'Influencers', color: 'bg-blue-600' };
                 return { name: 'Middle', color: 'bg-teal-600' };
             }
             
@@ -369,11 +369,9 @@
                     });
 
                     if (currentCategory === 'estrela') {
-                        title = 'Top 10 Estrelas';
-                        // A lógica de Top 10 é aplicada implicitamente pela paginação
+                        title = 'Estrelas';
                     } else if (currentCategory === 'influencers') {
-                        title = 'Top 10 Influencers';
-                        // A lógica de Top 10 é aplicada implicitamente pela paginação
+                        title = 'Influencers';
                     } else if (currentCategory === 'middle') {
                         title = 'Influenciadores Middle';
                     }
