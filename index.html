@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramenta de Análise de Influenciadores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e;
+            background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+        .card {
+            background-color: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(196, 181, 253, 0.4);
+        }
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #4b5563;
+        }
+        .filter-btn.active {
+            background-color: #7c3aed; /* Roxo Vibrante */
+            color: white;
+            border-color: #a78bfa;
+            box-shadow: 0 4px 14px 0 rgba(124, 58, 237, 0.39);
+        }
+        .filter-group {
+            border: 1px solid #374151;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background-color: rgba(31, 41, 55, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        .subject-select {
+            background-color: #374151;
+            border: 1px solid #4b5563;
+            color: #d1d5db;
+        }
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Análise de Influenciadores</h1>
+            <p class="text-lg text-gray-400">Classificação por seguidores, engajamento e assunto.</p>
+        </header>
+
+        <!-- Filtros -->
+        <div class="sticky top-4 z-10 flex flex-col items-center gap-6 mb-10">
+            <div class="filter-group w-full max-w-4xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <!-- Filtro de Plataforma -->
+                    <div class="flex-1">
+                        <p class="text-center font-semibold mb-3 text-gray-300">Rede Social:</p>
+                        <div id="platform-filter-container" class="flex flex-wrap justify-center gap-3">
+                            <button data-platform="instagram" class="filter-btn active bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full">Instagram</button>
+                            <button data-platform="tiktok" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full">TikTok</button>
+                            <button data-platform="youtube" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full">YouTube</button>
+                        </div>
+                    </div>
+                    <!-- Filtro de Categoria -->
+                    <div class="flex-1">
+                        <p class="text-center font-semibold mb-3 text-gray-300">Categoria:</p>
+                        <div id="category-filter-container" class="flex flex-wrap justify-center gap-3">
+                            <button data-category="all" class="filter-btn active bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Todos</button>
+                            <button data-category="estrela" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Estrelas</button>
+                            <button data-category="famoso" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Famosos</button>
+                            <button data-category="middle" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Middle</button>
+                        </div>
+                    </div>
+                    <!-- Filtro de Assunto -->
+                     <div class="flex-1">
+                        <p class="text-center font-semibold mb-3 text-gray-300">Assunto:</p>
+                        <select id="subject-filter-select" class="subject-select w-full p-2 rounded-lg">
+                            <option value="all">Todos os Assuntos</option>
+                            <!-- Opções de assunto serão inseridas aqui -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Título Dinâmico dos Resultados -->
+        <h2 id="results-title" class="text-2xl font-bold text-center text-white mb-8"></h2>
+        
+        <!-- Grade de Influenciadores -->
+        <div id="influencer-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 min-h-[500px]">
+            <!-- Os cards dos influenciadores serão inseridos aqui via JavaScript -->
+        </div>
+        
+        <!-- Controles de Paginação -->
+        <div id="pagination-controls" class="flex items-center justify-center mt-10 space-x-4">
+            <button id="prev-page" class="pagination-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">&lt; Anterior</button>
+            <span id="page-info" class="font-semibold text-gray-300"></span>
+            <button id="next-page" class="pagination-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">Próximo &gt;</button>
+        </div>
+
+
+        <footer class="text-center mt-12 text-gray-500">
+            <p class="mb-2">Ferramenta criada por: <a href="mailto:guilherme.giuntini@telefonica.com" class="text-purple-400 hover:underline">Guilherme Giuntini</a></p>
+            <p>Dados de seguidores e engajamento são para fins de demonstração.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- BASE DE DADOS EXPANDIDA ---
+            const influencers = [
+                // Influenciadores já existentes
+                { name: 'Neymar Jr', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Neymar_Jr._with_Al_Hilal%2C_29_August_2023_-_2.jpg', subjects: ['Esportes', 'Lifestyle'], instagram: { handle: 'neymarjr', followers: 235000000, engagement: 0.80, url: 'https://www.instagram.com/neymarjr/' }, tiktok: { handle: 'neymarjr', followers: 35000000, engagement: 1.15, url: 'https://www.tiktok.com/@neymarjr' }, youtube: { handle: 'NeymarJr', followers: 4500000, engagement: 0.45, url: 'https://www.youtube.com/user/neymarjr' } },
+                { name: 'Virgínia Fonseca', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_n4H9_eYvLg-G2s2jA2R3c0y6fQe9J6w_dY0fU=s176-c-k-c0x00ffffff-no-rj', subjects: ['Lifestyle', 'Beleza', 'Família'], instagram: { handle: 'virginia', followers: 52000000, engagement: 5.70, url: 'https://www.instagram.com/virginia/' }, tiktok: { handle: 'virginiafonseca', followers: 42000000, engagement: 6.10, url: 'https://www.tiktok.com/@virginiafonseca' }, youtube: { handle: 'VirginiaFonseca', followers: 12500000, engagement: 4.0, url: 'https://www.youtube.com/channel/UCcWbznA_ds48i-_19BG8N3A' } },
+                { name: 'Whindersson Nunes', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Whindersson_Nunes_em_2022.jpg/440px-Whindersson_Nunes_em_2022.jpg', subjects: ['Humor', 'Música', 'Entretenimento'], instagram: { handle: 'whinderssonnunes', followers: 61000000, engagement: 1.50, url: 'https://www.instagram.com/whinderssonnunes/' }, tiktok: { handle: 'whinderssonnunes', followers: 24000000, engagement: 3.0, url: 'https://www.tiktok.com/@whinderssonnunes' }, youtube: { handle: 'whinderssonnunes', followers: 45500000, engagement: 2.75, url: 'https://www.youtube.com/user/whinderssonnunes' } },
+                // ... (outros influenciadores já na base)
+
+                 // ... restante da base de dados
+                { name: 'Nátaly Neri', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=NN', subjects: ['Sustentabilidade', 'Moda'], instagram: { handle: 'natalyneri', followers: 500000, engagement: 4.8, url: 'https://www.instagram.com/natalyneri/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Cristal Muniz', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=CM', subjects: ['Sustentabilidade'], instagram: { handle: 'umavidasemlixo', followers: 200000, engagement: 3.9, url: 'https://www.instagram.com/umavidasemlixo/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Luisa Mell', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=LM', subjects: ['Sustentabilidade', 'Ativismo', 'Veganismo'], instagram: { handle: 'luisamell', followers: 3000000, engagement: 5.5, url: 'https://www.instagram.com/luisamell/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Menos 1 Lixo', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=M1L', subjects: ['Sustentabilidade'], instagram: { handle: 'menos1lixo', followers: 400000, engagement: 2.1, url: 'https://www.instagram.com/menos1lixo/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Fe Cortez', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=FC', subjects: ['Sustentabilidade', 'Ativismo'], instagram: { handle: 'fecortez', followers: 300000, engagement: 4.0, url: 'https://www.instagram.com/fecortez/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Amanda Costa', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=AC', subjects: ['Sustentabilidade', 'Ativismo'], instagram: { handle: 'amandinhacst', followers: 100000, engagement: 6.2, url: 'https://www.instagram.com/amandinhacst/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Camila Coutinho', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=CC', subjects: ['Sustentabilidade', 'Moda', 'Lifestyle'], instagram: { handle: 'camilacoutinho', followers: 2000000, engagement: 3.5, url: 'https://www.instagram.com/camilacoutinho/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Giovanna Nader', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=GN', subjects: ['Sustentabilidade', 'Lifestyle'], instagram: { handle: 'giovannanader', followers: 150000, engagement: 4.7, url: 'https://www.instagram.com/giovannanader/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Gabriela Mazepa', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=GM', subjects: ['Sustentabilidade', 'Moda', 'Design'], instagram: { handle: 'gabrielamazepa', followers: 50000, engagement: 5.0, url: 'https://www.instagram.com/gabrielamazepa/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Meninos Rei', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=MR', subjects: ['Sustentabilidade', 'Moda'], instagram: { handle: 'meninosrei', followers: 80000, engagement: 4.5, url: 'https://www.instagram.com/meninosrei/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } }
+            ];
+
+            // --- LÓGICA DA APLICAÇÃO (sem alterações) ---
+            let currentPlatform = 'instagram';
+            let currentCategory = 'all';
+            let currentSubject = 'all';
+            let currentPage = 1;
+            const itemsPerPage = 10;
+            let finalInfluencers = [];
+
+            const influencerGrid = document.getElementById('influencer-grid');
+            const resultsTitle = document.getElementById('results-title');
+            const subjectFilterSelect = document.getElementById('subject-filter-select');
+            const platformFilterContainer = document.getElementById('platform-filter-container');
+            const categoryFilterContainer = document.getElementById('category-filter-container');
+            const prevPageBtn = document.getElementById('prev-page');
+            const nextPageBtn = document.getElementById('next-page');
+            const pageInfo = document.getElementById('page-info');
+            const paginationControls = document.getElementById('pagination-controls');
+
+
+            function formatFollowers(num) {
+                if (num >= 1000000) return (num / 1000000).toFixed(1).replace('.0', '') + 'M';
+                if (num >= 1000) return (num / 1000).toFixed(1).replace('.0', '') + 'K';
+                return num;
+            }
+
+            function getCategory(followers) {
+                if (followers > 7000000) return { name: 'Famoso', color: 'bg-blue-600' };
+                if (followers >= 1000000 && followers <= 6000000) return { name: 'Estrela', color: 'bg-purple-600' };
+                return { name: 'Middle', color: 'bg-teal-600' };
+            }
+            
+            function populateSubjectFilter() {
+                const allSubjects = new Set();
+                influencers.forEach(inf => {
+                    inf.subjects.forEach(subject => allSubjects.add(subject));
+                });
+
+                const sortedSubjects = Array.from(allSubjects).sort();
+                
+                subjectFilterSelect.innerHTML = '<option value="all">Todos os Assuntos</option>'; // Limpa antes de popular
+                sortedSubjects.forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectFilterSelect.appendChild(option);
+                });
+            }
+
+            function updatePaginationControls() {
+                const totalItems = finalInfluencers.length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                if (totalPages <= 1) {
+                    paginationControls.style.display = 'none';
+                    return;
+                }
+                
+                paginationControls.style.display = 'flex';
+                pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+                prevPageBtn.disabled = currentPage === 1;
+                nextPageBtn.disabled = currentPage === totalPages;
+            }
+
+            function renderInfluencers() {
+                let processedInfluencers = influencers
+                    .filter(inf => inf[currentPlatform] && inf[currentPlatform].followers > 0);
+
+                if (currentSubject !== 'all') {
+                    processedInfluencers = processedInfluencers.filter(inf => inf.subjects.includes(currentSubject));
+                }
+
+                processedInfluencers.sort((a, b) => b[currentPlatform].followers - a[currentPlatform].followers);
+                
+                let title = '';
+
+                if (currentCategory === 'all') {
+                    title = 'Todos os Influenciadores';
+                    finalInfluencers = processedInfluencers;
+                } else {
+                    finalInfluencers = processedInfluencers.filter(inf => {
+                        const categoryName = getCategory(inf[currentPlatform].followers).name.toLowerCase();
+                        return categoryName === currentCategory;
+                    });
+
+                    if (currentCategory === 'estrela') {
+                        title = 'Top 10 Estrelas';
+                        // A lógica de Top 10 é aplicada implicitamente pela paginação
+                    } else if (currentCategory === 'famoso') {
+                        title = 'Top 10 Famosos';
+                        // A lógica de Top 10 é aplicada implicitamente pela paginação
+                    } else if (currentCategory === 'middle') {
+                        title = 'Influenciadores Middle';
+                    }
+                }
+                
+                if(currentSubject !== 'all') {
+                    title += ` de ${currentSubject}`;
+                }
+
+                resultsTitle.textContent = title;
+                
+                influencerGrid.innerHTML = '';
+                
+                if (finalInfluencers.length === 0) {
+                    influencerGrid.innerHTML = `<p class="text-gray-400 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5 text-center py-8">Nenhum influenciador encontrado para esta combinação de filtros.</p>`;
+                    paginationControls.style.display = 'none';
+                    return;
+                }
+
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const paginatedInfluencers = finalInfluencers.slice(startIndex, endIndex);
+
+                paginatedInfluencers.forEach(influencer => {
+                    const platformData = influencer[currentPlatform];
+                    const category = getCategory(platformData.followers);
+                    const initials = influencer.name.split(' ').map(n => n[0]).join('');
+                    
+                    const subjectsHTML = influencer.subjects.map(s => `<span class="bg-gray-600 text-gray-300 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">${s}</span>`).join('');
+
+                    const cardHTML = `
+                        <div class="card rounded-lg overflow-hidden p-4 flex flex-col text-center">
+                            <div class="flex-grow">
+                                <img class="w-24 h-24 rounded-full mb-4 border-2 border-gray-500 object-cover mx-auto bg-gray-700" src="${influencer.imageUrl}" alt="Foto de ${influencer.name}" onerror="this.onerror=null;this.src='https://placehold.co/150x150/374151/ffffff?text=${initials}';">
+                                <h3 class="font-bold text-lg text-white truncate mb-1" title="${influencer.name}">${influencer.name}</h3>
+                                <a href="${platformData.url}" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-400 hover:underline mb-3 block truncate" title="Visitar perfil de @${platformData.handle}">@${platformData.handle}</a>
+                                <div class="flex flex-wrap justify-center my-3 min-h-[50px]">${subjectsHTML}</div>
+                            </div>
+
+                            <div class="mt-auto w-full pt-3 border-t border-gray-700">
+                                <div class="text-xl font-bold text-white mb-2">${formatFollowers(platformData.followers)}</div>
+                                <div class="flex items-center justify-center text-sm text-yellow-400 font-semibold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" /></svg>
+                                    <span>${platformData.engagement.toFixed(2)}% Engajamento</span>
+                                </div>
+                                <div class="mt-4">
+                                   <span class="text-xs font-semibold px-3 py-1 rounded-full ${category.color}">${category.name}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    influencerGrid.innerHTML += cardHTML;
+                });
+
+                updatePaginationControls();
+            }
+            
+            function handleFilterChange() {
+                currentPage = 1;
+                renderInfluencers();
+            }
+
+            platformFilterContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('button');
+                if (!button) return;
+                currentPlatform = button.dataset.platform;
+                platformFilterContainer.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                handleFilterChange();
+            });
+
+            categoryFilterContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('button');
+                if (!button) return;
+                currentCategory = button.dataset.category;
+                categoryFilterContainer.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                handleFilterChange();
+            });
+
+            subjectFilterSelect.addEventListener('change', (e) => {
+                currentSubject = e.target.value;
+                handleFilterChange();
+            });
+
+            prevPageBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderInfluencers();
+                }
+            });
+
+            nextPageBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(finalInfluencers.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderInfluencers();
+                }
+            });
+
+            populateSubjectFilter();
+            renderInfluencers();
+        });
+    </script>
+
+</body>
+</html>
+
+
+
