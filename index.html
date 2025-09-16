@@ -31,12 +31,39 @@
         .filter-btn {
             transition: all 0.2s ease-in-out;
             border: 1px solid #4b5563;
+            background-color: #374151;
         }
-        .filter-btn.active {
-            background-color: #7c3aed; /* Roxo Vibrante */
+        .filter-btn svg {
+            margin-right: 0.5rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        /* Estilos de Botões Ativos */
+        .filter-btn.instagram-active {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 14px 0 rgba(220, 39, 67, 0.3);
+        }
+        .filter-btn.tiktok-active {
+            background-color: #000000;
+            color: white;
+            border-color: #ffffff;
+            box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.3);
+        }
+        .filter-btn.youtube-active {
+            background-color: #FF0000;
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 14px 0 rgba(255, 0, 0, 0.3);
+        }
+        .filter-btn.active { /* Para botões de categoria */
+             background-color: #7c3aed; /* Roxo Vibrante */
             color: white;
             border-color: #a78bfa;
             box-shadow: 0 4px 14px 0 rgba(124, 58, 237, 0.39);
+        }
+        .filter-btn:not(.instagram-active):not(.tiktok-active):not(.youtube-active):not(.active):hover {
+            background-color: #4b5563;
         }
         .filter-group {
             border: 1px solid #374151;
@@ -72,19 +99,42 @@
                     <div class="flex-1">
                         <p class="text-center font-semibold mb-3 text-gray-300">Rede Social:</p>
                         <div id="platform-filter-container" class="flex flex-wrap justify-center gap-3">
-                            <button data-platform="instagram" class="filter-btn active bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full">Instagram</button>
-                            <button data-platform="tiktok" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full">TikTok</button>
-                            <button data-platform="youtube" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full">YouTube</button>
+                            <button data-platform="instagram" class="filter-btn instagram-active text-white font-semibold py-2 px-6 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                <span>Instagram</span>
+                            </button>
+                            <button data-platform="tiktok" class="filter-btn text-white font-semibold py-2 px-6 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.83-.95-6.43-2.98-1.55-1.99-2.31-4.64-2.2-7.23.12-2.52 1.18-4.79 2.89-6.31 1.94-1.69 4.63-2.62 7.24-2.52Z"></path></svg>
+                                <span>TikTok</span>
+                            </button>
+                            <button data-platform="youtube" class="filter-btn text-white font-semibold py-2 px-6 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"></path></svg>
+                                <span>YouTube</span>
+                            </button>
                         </div>
                     </div>
                     <!-- Filtro de Categoria -->
                     <div class="flex-1">
                         <p class="text-center font-semibold mb-3 text-gray-300">Categoria:</p>
-                        <div id="category-filter-container" class="flex flex-wrap justify-center gap-3">
-                            <button data-category="all" class="filter-btn active bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Todos</button>
-                            <button data-category="estrela" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Estrelas</button>
-                            <button data-category="famoso" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Famosos</button>
-                            <button data-category="middle" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base">Middle</button>
+                        <div id="category-filter-container" class="grid grid-cols-2 gap-3">
+                            <button data-category="all" class="filter-btn active text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2"><path d="M3 11h8V3H3v8zm0 10h8v-8H3v8zm10 0h8v-8h-8v8zm0-18v8h8V3h-8z"></path></svg>
+                                <span>Todos</span>
+                            </button>
+                            <button data-category="estrela" class="filter-btn text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                                <span>Estrelas</span>
+                            </button>
+                            <button data-category="influencers" class="filter-btn text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                                    <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zM9 16c-1.68 0-3-1.49-3-3.33V11h12v1.67C18 14.51 16.68 16 15 16H9zm-2.5-5C6.22 11 6 10.78 6 10.5S6.22 10 6.5 10h11c.28 0 .5.22.5.5s-.22.5-.5.5h-11z"></path>
+                                </svg>
+                                <span>Influencers</span>
+                            </button>
+                            <button data-category="middle" class="filter-btn text-white font-semibold py-2 px-5 rounded-full text-sm sm:text-base flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+                                <span>Middle</span>
+                            </button>
                         </div>
                     </div>
                     <!-- Filtro de Assunto -->
@@ -123,15 +173,89 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- BASE DE DADOS EXPANDIDA ---
+            // --- BASE DE DADOS COMPLETA ---
             const influencers = [
-                // Influenciadores já existentes
                 { name: 'Neymar Jr', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Neymar_Jr._with_Al_Hilal%2C_29_August_2023_-_2.jpg', subjects: ['Esportes', 'Lifestyle'], instagram: { handle: 'neymarjr', followers: 235000000, engagement: 0.80, url: 'https://www.instagram.com/neymarjr/' }, tiktok: { handle: 'neymarjr', followers: 35000000, engagement: 1.15, url: 'https://www.tiktok.com/@neymarjr' }, youtube: { handle: 'NeymarJr', followers: 4500000, engagement: 0.45, url: 'https://www.youtube.com/user/neymarjr' } },
                 { name: 'Virgínia Fonseca', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_n4H9_eYvLg-G2s2jA2R3c0y6fQe9J6w_dY0fU=s176-c-k-c0x00ffffff-no-rj', subjects: ['Lifestyle', 'Beleza', 'Família'], instagram: { handle: 'virginia', followers: 52000000, engagement: 5.70, url: 'https://www.instagram.com/virginia/' }, tiktok: { handle: 'virginiafonseca', followers: 42000000, engagement: 6.10, url: 'https://www.tiktok.com/@virginiafonseca' }, youtube: { handle: 'VirginiaFonseca', followers: 12500000, engagement: 4.0, url: 'https://www.youtube.com/channel/UCcWbznA_ds48i-_19BG8N3A' } },
                 { name: 'Whindersson Nunes', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Whindersson_Nunes_em_2022.jpg/440px-Whindersson_Nunes_em_2022.jpg', subjects: ['Humor', 'Música', 'Entretenimento'], instagram: { handle: 'whinderssonnunes', followers: 61000000, engagement: 1.50, url: 'https://www.instagram.com/whinderssonnunes/' }, tiktok: { handle: 'whinderssonnunes', followers: 24000000, engagement: 3.0, url: 'https://www.tiktok.com/@whinderssonnunes' }, youtube: { handle: 'whinderssonnunes', followers: 45500000, engagement: 2.75, url: 'https://www.youtube.com/user/whinderssonnunes' } },
-                // ... (outros influenciadores já na base)
-
-                 // ... restante da base de dados
+                { name: 'Anitta', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/27/Anitta_2023.jpg', subjects: ['Música', 'Entretenimento', 'Lifestyle'], instagram: { handle: 'anitta', followers: 68000000, engagement: 1.10, url: 'https://www.instagram.com/anitta/' }, tiktok: { handle: 'anitta', followers: 25000000, engagement: 2.40, url: 'https://www.tiktok.com/@anitta' }, youtube: { handle: 'Anitta', followers: 18000000, engagement: 0.85, url: 'https://www.youtube.com/channel/UCq_dCg2I2a8soC9Y2M0Z3YQ' } },
+                { name: 'Thiago Nigro', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_kXg-hX-jX-jX-jX-jX-jX-jX-jX-jX-jX-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Finanças', 'Investimentos', 'Empreendedorismo'], instagram: { handle: 'thiago.nigro', followers: 9200000, engagement: 3.4, url: 'https://www.instagram.com/thiago.nigro/' }, tiktok: { handle: 'thiago.nigro', followers: 1500000, engagement: 4.1, url: 'https://www.tiktok.com/@thiago.nigro' }, youtube: { handle: 'OPrimoRico', followers: 8800000, engagement: 2.8, url: 'https://www.youtube.com/channel/UCT4n_y_O-A8f2gL3v-AA3RA' } },
+                { name: 'RezendeEvil', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-d7z_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games', 'Lifestyle', 'Entretenimento'], instagram: { handle: 'rezende', followers: 13500000, engagement: 1.7, url: 'https://www.instagram.com/rezende/' }, tiktok: { handle: 'rezende', followers: 9500000, engagement: 3.1, url: 'https://www.tiktok.com/@rezende' }, youtube: { handle: 'rezendeevil', followers: 32000000, engagement: 2.4, url: 'https://www.youtube.com/user/rezendeevil' } },
+                { name: 'Robin Hood Gamer', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_n-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games'], instagram: { handle: 'robinhoodgameroficial', followers: 2200000, engagement: 4.4, url: 'https://www.instagram.com/robinhoodgameroficial/' }, tiktok: { handle: 'robinhoodgameroficial', followers: 5500000, engagement: 6.0, url: 'https://www.tiktok.com/@robinhoodgameroficial' }, youtube: { handle: 'RobinHoodGamer1', followers: 22000000, engagement: 3.8, url: 'https://www.youtube.com/user/RobinHoodGamer1' } },
+                { name: 'AuthenticGames', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games'], instagram: { handle: 'authenticgames', followers: 2200000, engagement: 2.0, url: 'https://www.instagram.com/authenticgames/' }, tiktok: { handle: 'authenticgames', followers: 1200000, engagement: 4.7, url: 'https://www.tiktok.com/@authenticgames' }, youtube: { handle: 'AuthenticGames', followers: 21500000, engagement: 3.0, url: 'https://www.youtube.com/user/AuthenticGames' } },
+                { name: 'TazerCraft', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_m-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games', 'Humor'], instagram: { handle: 'tazercraft', followers: 3200000, engagement: 3.2, url: 'https://www.instagram.com/tazercraft/' }, tiktok: { handle: 'tazercraft', followers: 2300000, engagement: 5.1, url: 'https://www.tiktok.com/@tazercraft' }, youtube: { handle: 'TazerCraft', followers: 14800000, engagement: 3.9, url: 'https://www.youtube.com/user/TazerCraft' } },
+                { name: 'Jazzghost', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_l-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games'], instagram: { handle: 'jazzghost', followers: 1100000, engagement: 6.4, url: 'https://www.instagram.com/jazzghost/' }, tiktok: { handle: 'jazzghost', followers: 2200000, engagement: 8.0, url: 'https://www.tiktok.com/@jazzghost' }, youtube: { handle: 'jazzghost1', followers: 14000000, engagement: 5.4, url: 'https://www.youtube.com/user/jazzghost1' } },
+                { name: 'Nobru', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games', 'Lifestyle'], instagram: { handle: 'nobru', followers: 13800000, engagement: 4.9, url: 'https://www.instagram.com/nobru/' }, tiktok: { handle: 'nobru', followers: 6500000, engagement: 6.7, url: 'https://www.tiktok.com/@nobru' }, youtube: { handle: 'NobruTV', followers: 10500000, engagement: 4.1, url: 'https://www.youtube.com/channel/UComJd-d2-3a_N-Kx4jCoGQA' } },
+                { name: 'Lipão Gamer', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games'], instagram: { handle: 'lipaogamer', followers: 2200000, engagement: 4.7, url: 'https://www.instagram.com/lipaogamer/' }, tiktok: { handle: 'lipaogamer', followers: 3300000, engagement: 7.1, url: 'https://www.tiktok.com/@lipaogamer' }, youtube: { handle: 'LipaoGamer', followers: 10600000, engagement: 4.8, url: 'https://www.youtube.com/user/LipaoGamer' } },
+                { name: 'Loud Coringa', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mf-5p0b_j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games', 'Lifestyle', 'Entretenimento'], instagram: { handle: 'loud_coringa', followers: 11000000, engagement: 7.1, url: 'https://www.instagram.com/loud_coringa/' }, tiktok: { handle: 'loud_coringa', followers: 8800000, engagement: 9.0, url: 'https://www.tiktok.com/@loud_coringa' }, youtube: { handle: 'LOUD_Coringa', followers: 10300000, engagement: 5.3, url: 'https://www.youtube.com/channel/UCEX-fPkqf5pm7b-b3a5J3g' } },
+                { name: 'Jon Vlogs', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Lifestyle', 'Games', 'Entretenimento'], instagram: { handle: 'jonvlogs', followers: 3500000, engagement: 6.2, url: 'https://www.instagram.com/jonvlogs/' }, tiktok: { handle: 'jonvlogs', followers: 11000000, engagement: 8.4, url: 'https://www.tiktok.com/@jonvlogs' }, youtube: { handle: 'JonVlogs', followers: 10400000, engagement: 5.0, url: 'https://www.youtube.com/user/JonVlogs' } },
+                { name: 'Cerol', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games'], instagram: { handle: 'cerol', followers: 9800000, engagement: 6.9, url: 'https://www.instagram.com/cerol/' }, tiktok: { handle: 'cerol', followers: 4500000, engagement: 9.4, url: 'https://www.tiktok.com/@cerol' }, youtube: { handle: 'CEROLZERA', followers: 7500000, engagement: 6.1, url: 'https://www.youtube.com/channel/UCEX-fPkqf5pm7b-b3a5J3g' } },
+                { name: 'Sheviii2k', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games', 'Humor'], instagram: { handle: 'sheviii2k', followers: 2300000, engagement: 5.4, url: 'https://www.instagram.com/sheviii2k/' }, tiktok: { handle: 'sheviii2k', followers: 6600000, engagement: 7.8, url: 'https://www.tiktok.com/@sheviii2k' }, youtube: { handle: 'Sheviii2k', followers: 6400000, engagement: 5.7, url: 'https://www.youtube.com/user/Sheviii2k' } },
+                { name: 'Flakes Power', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games'], instagram: { handle: 'flakespower', followers: 1200000, engagement: 7.9, url: 'https://www.instagram.com/flakespower/' }, tiktok: { handle: 'flakespower', followers: 2400000, engagement: 10.0, url: 'https://www.tiktok.com/@flakespower' }, youtube: { handle: 'FlakesPower', followers: 6800000, engagement: 7.4, url: 'https://www.youtube.com/user/FlakesPower' } },
+                { name: 'Alanzoka', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games'], instagram: { handle: 'alanzoka', followers: 3500000, engagement: 8.9, url: 'https://www.instagram.com/alanzoka/' }, tiktok: { handle: 'alanzoka', followers: 1300000, engagement: 11.4, url: 'https://www.tiktok.com/@alanzoka' }, youtube: { handle: 'alanzoka', followers: 3800000, engagement: 8.7, url: 'https://www.youtube.com/user/alanzoka' } },
+                { name: 'Gaules', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games', 'Esportes'], instagram: { handle: 'gaules', followers: 4500000, engagement: 6.6, url: 'https://www.instagram.com/gaules/' }, tiktok: { handle: 'gaules', followers: 2300000, engagement: 8.8, url: 'https://www.tiktok.com/@gaules' }, youtube: { handle: 'Gaules', followers: 1800000, engagement: 7.0, url: 'https://www.youtube.com/channel/UCEX-fPkqf5pm7b-b3a5J3g' } },
+                { name: 'Malena', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j_j_j_j_j_j_j_j_j_j_j_j_j_j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Games', 'Humor'], instagram: { handle: 'malena', followers: 1100000, engagement: 7.1, url: 'https://www.instagram.com/malena/' }, tiktok: { handle: 'malena', followers: 600000, engagement: 9.7, url: 'https://www.tiktok.com/@malena' }, youtube: { handle: 'malena010102', followers: 2200000, engagement: 6.8, url: 'https://www.youtube.com/user/malena010102' } },
+                { name: 'Babi Loud', imageUrl: 'https://placehold.co/150x150/ef4444/ffffff?text=BL', subjects: ['Games', 'Lifestyle'], instagram: { handle: 'loud_babi', followers: 1700000, engagement: 10.4, url: 'https://www.instagram.com/loud_babi/' }, tiktok: { handle: 'loud_babi', followers: 5500000, engagement: 11.9, url: 'https://www.tiktok.com/@loud_babi' }, youtube: { handle: 'loud_babi', followers: 0, engagement: 0, url: '' } },
+                { name: 'Daiki', imageUrl: 'https://placehold.co/150x150/a855f7/ffffff?text=DK', subjects: ['Games', 'Esportes'], instagram: { handle: 'daikifps', followers: 1100000, engagement: 9.4, url: 'https://www.instagram.com/daikifps/' }, tiktok: { handle: 'daikifps', followers: 1200000, engagement: 10.7, url: 'https://www.tiktok.com/@daikifps' }, youtube: { handle: 'daikifps', followers: 0, engagement: 0, url: '' } },
+                { name: 'Casimiro', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_kXg-hX-jX-jX-jX-jX-jX-jX-jX-jX-jX-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Esportes', 'Humor', 'Games'], instagram: { handle: 'casimiro', followers: 12500000, engagement: 8.4, url: 'https://www.instagram.com/casimiro/'}, tiktok: { handle: 'casimiro', followers: 5500000, engagement: 9.1, url: 'https://www.tiktok.com/@casimiro' }, youtube: { handle: 'CortesdoCasimiro', followers: 5300000, engagement: 7.0, url: 'https://www.youtube.com/channel/UCEX-fPkqf5pm7b-b3a5J3g' } },
+                { name: 'Eduarda Gutierrez', imageUrl: 'https://placehold.co/150x150/f472b6/ffffff?text=EG', subjects: ['Lifestyle'], instagram: { handle: 'eduardagutierrez', followers: 10500000, engagement: 3.0, url: '#' }, tiktok: { handle: 'eduardagutierrez', followers: 2300000, engagement: 3.9, url: '#' }, youtube: { handle: 'eduardagutierrez', followers: 600000, engagement: 2.4, url: '#' } },
+                { name: 'Morimura', imageUrl: 'https://placehold.co/150x150/818cf8/ffffff?text=M', subjects: ['Lifestyle', 'Humor'], instagram: { handle: 'morimura', followers: 8500000, engagement: 4.4, url: '#' }, tiktok: { handle: 'morimura', followers: 13000000, engagement: 5.9, url: '#' }, youtube: { handle: 'morimura', followers: 3300000, engagement: 2.9, url: '#' } },
+                { name: 'Rayssa Buq', imageUrl: 'https://placehold.co/150x150/f59e0b/ffffff?text=RB', subjects: ['Lifestyle'], instagram: { handle: 'rayssabuq', followers: 7300000, engagement: 5.1, url: '#' }, tiktok: { handle: 'rayssabuq', followers: 3200000, engagement: 5.4, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Bruna Biancardi', imageUrl: 'https://placehold.co/150x150/34d399/ffffff?text=BB', subjects: ['Lifestyle', 'Moda'], instagram: { handle: 'brunabiancardi', followers: 6400000, engagement: 7.0, url: '#' }, tiktok: { handle: 'brunabiancardi', followers: 1200000, engagement: 6.7, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Rafaella Tuma', imageUrl: 'https://placehold.co/150x150/60a5fa/ffffff?text=RT', subjects: ['Lifestyle', 'Humor', 'Ilustração'], instagram: { handle: 'rafaellatuma', followers: 5500000, engagement: 7.9, url: '#' }, tiktok: { handle: 'rafaellatuma', followers: 4400000, engagement: 8.4, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Tettrem', imageUrl: 'https://placehold.co/150x150/f43f5e/ffffff?text=T', subjects: ['Lifestyle', 'Humor'], instagram: { handle: 'tettrem', followers: 26000000, engagement: 2.4, url: '#' }, tiktok: { handle: 'tettrem', followers: 16000000, engagement: 3.4, url: '#' }, youtube: { handle: 'tettrem', followers: 8500000, engagement: 1.9, url: '#' } },
+                { name: 'Alvaro', imageUrl: 'https://placehold.co/150x150/a78bfa/ffffff?text=A', subjects: ['Lifestyle', 'Humor'], instagram: { handle: 'alvaro', followers: 6300000, engagement: 6.4, url: '#' }, tiktok: { handle: 'alvxaro', followers: 8500000, engagement: 6.9, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Carlinhos Maia', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Carlinhos_Maia_em_2023.jpg', subjects: ['Lifestyle', 'Humor'], instagram: { handle: 'carlinhosmaiaof', followers: 31000000, engagement: 3.9, url: '#' }, tiktok: { handle: 'carlinhosmaiaof', followers: 11000000, engagement: 4.9, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Lucas Rangel', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-7v-j-7v-j-7v-j-7v-j-7v-j-7v-j-7v-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Lifestyle', 'Humor', 'Entretenimento'], instagram: { handle: 'lucasranngel', followers: 21000000, engagement: 3.7, url: '#' }, tiktok: { handle: 'ranngel', followers: 26000000, engagement: 4.4, url: '#' }, youtube: { handle: 'Rangel', followers: 10500000, engagement: 2.9, url: '#' } },
+                { name: 'Lívia Rafaelle', imageUrl: 'https://placehold.co/150x150/facc15/ffffff?text=LR', subjects: ['Lifestyle'], instagram: { handle: 'liviarafaelle', followers: 4200000, engagement: 4.7, url: '#' }, tiktok: { handle: 'liviarafaelle', followers: 1200000, engagement: 5.1, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Camila Loures', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k4x7J-K_n-m-mP7-M-z_x7bJ7b-K_n-m-mP7-M-z=s176-c-k-c0x00ffffff-no-rj', subjects: ['Lifestyle', 'Entretenimento'], instagram: { handle: 'camilaloures', followers: 12800000, engagement: 5.0, url: '#' }, tiktok: { handle: 'camilaloures', followers: 19000000, engagement: 5.9, url: '#' }, youtube: { handle: 'CamilaLoures', followers: 15500000, engagement: 3.9, url: '#' } },
+                { name: 'Viih Tube', imageUrl: 'https://placehold.co/150x150/f59e0b/ffffff?text=VT', subjects: ['Lifestyle', 'Maternidade'], instagram: { handle: 'viihtube', followers: 21000000, engagement: 4.1, url: '#' }, tiktok: { handle: 'viihtube', followers: 13000000, engagement: 4.9, url: '#' }, youtube: { handle: 'ViihTube', followers: 11500000, engagement: 3.4, url: '#' } },
+                { name: 'Mari Menezes', imageUrl: 'https://placehold.co/150x150/4ade80/ffffff?text=MM', subjects: ['Lifestyle'], instagram: { handle: 'marimenezes', followers: 3300000, engagement: 6.7, url: '#' }, tiktok: { handle: 'marimenezes', followers: 5500000, engagement: 7.4, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Brino', imageUrl: 'https://placehold.co/150x150/22d3ee/ffffff?text=B', subjects: ['Lifestyle', 'Humor'], instagram: { handle: 'brino', followers: 2200000, engagement: 5.8, url: '#' }, tiktok: { handle: 'brino', followers: 4400000, engagement: 6.4, url: '#' }, youtube: { handle: 'brino', followers: 1200000, engagement: 3.9, url: '#' } },
+                { name: 'Felca', imageUrl: 'https://placehold.co/150x150/fbbf24/ffffff?text=F', subjects: ['Lifestyle', 'Humor'], instagram: { handle: 'felca', followers: 5500000, engagement: 8.9, url: '#' }, tiktok: { handle: 'felca', followers: 8800000, engagement: 9.9, url: '#' }, youtube: { handle: 'felca', followers: 3500000, engagement: 6.9, url: '#' } },
+                { name: 'Yasmin Castilho', imageUrl: 'https://placehold.co/150x150/f87171/ffffff?text=YC', subjects: ['Lifestyle'], instagram: { handle: 'yasmincastilho', followers: 1200000, engagement: 7.1, url: '#' }, tiktok: { handle: 'yasmincastilho', followers: 2300000, engagement: 7.7, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Bomtalvão', imageUrl: 'https://placehold.co/150x150/93c5fd/ffffff?text=B', subjects: ['Lifestyle', 'Humor'], instagram: { handle: 'bomtalvao', followers: 1100000, engagement: 6.0, url: '#' }, tiktok: { handle: 'bomtalvao', followers: 1700000, engagement: 6.4, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Juliette Freire', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Juliette_no_Pr%C3%AAmio_Multishow_2021.jpg/440px-Juliette_no_Pr%C3%AAmio_Multishow_2021.jpg', subjects: ['Lifestyle', 'Música'], instagram: { handle: 'juliette', followers: 32000000, engagement: 3.4, url: '#' }, tiktok: { handle: 'juliette', followers: 11500000, engagement: 3.9, url: '#' }, youtube: { handle: 'Juliette', followers: 2200000, engagement: 2.7, url: '#' } },
+                { name: 'Bianca Andrade', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bianca_Andrade_em_2023.jpg/440px-Bianca_Andrade_em_2023.jpg', subjects: ['Saúde & Beleza', 'Empreendedorismo'], instagram: { handle: 'bianca', followers: 20500000, engagement: 2.10, url: '#' }, tiktok: { handle: 'bianca', followers: 7000000, engagement: 3.85, url: '#' }, youtube: { handle: 'BocaRosa', followers: 5800000, engagement: 1.45, url: '#' } },
+                { name: 'Mari Maria', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mP-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Saúde & Beleza'], instagram: { handle: 'marimaria', followers: 23000000, engagement: 2.4, url: '#' }, tiktok: { handle: 'marimaria', followers: 27000000, engagement: 2.9, url: '#' }, youtube: { handle: 'MariMaria', followers: 10500000, engagement: 1.9, url: '#' } },
+                { name: 'Franciny Ehlke', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_n-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Saúde & Beleza', 'Lifestyle'], instagram: { handle: 'francinyehlke', followers: 19000000, engagement: 2.9, url: '#' }, tiktok: { handle: 'francinyehlke', followers: 21000000, engagement: 3.4, url: '#' }, youtube: { handle: 'FrancinyEhlke', followers: 10800000, engagement: 2.4, url: '#' } },
+                { name: 'Ingrid Ohara', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Saúde & Beleza', 'Entretenimento'], instagram: { handle: 'ingridohara', followers: 12800000, engagement: 2.7, url: '#' }, tiktok: { handle: 'ingridohara', followers: 16000000, engagement: 3.1, url: '#' }, youtube: { handle: 'IngridOhara', followers: 8500000, engagement: 1.9, url: '#' } },
+                { name: 'Lore Souza', imageUrl: 'https://placehold.co/150x150/f0abfc/ffffff?text=LS', subjects: ['Saúde & Beleza'], instagram: { handle: 'loresouza', followers: 3500000, engagement: 4.0, url: '#' }, tiktok: { handle: 'loresouza', followers: 1200000, engagement: 4.4, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Theulyn Reis', imageUrl: 'https://placehold.co/150x150/a5b4fc/ffffff?text=TR', subjects: ['Saúde & Beleza'], instagram: { handle: 'theulynreis', followers: 4800000, engagement: 3.8, url: '#' }, tiktok: { handle: 'theulynreis', followers: 2300000, engagement: 4.1, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Dra. Kamilla Lacerda', imageUrl: 'https://placehold.co/150x150/fda4af/ffffff?text=KL', subjects: ['Saúde & Beleza'], instagram: { handle: 'drakamillalacerda', followers: 4300000, engagement: 2.4, url: '#' }, tiktok: { handle: 'drakamillalacerda', followers: 600000, engagement: 2.9, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Gabriela Pugliesi', imageUrl: 'https://placehold.co/150x150/86efac/ffffff?text=GP', subjects: ['Saúde & Beleza', 'Fitness'], instagram: { handle: 'gabrielapugliesi', followers: 4200000, engagement: 1.7, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Juliana Goes', imageUrl: 'https://placehold.co/150x150/99f6e4/ffffff?text=JG', subjects: ['Saúde & Beleza'], instagram: { handle: 'jujulianagoes', followers: 1100000, engagement: 3.1, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'JulianaGoes', followers: 550000, engagement: 1.9, url: '#' } },
+                { name: 'Mariana Ferrão', imageUrl: 'https://placehold.co/150x150/bfdbfe/ffffff?text=MF', subjects: ['Saúde & Beleza', 'Jornalismo'], instagram: { handle: 'marianaferrao', followers: 550000, engagement: 2.0, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Patricia Marx', imageUrl: 'https://placehold.co/150x150/ddd6fe/ffffff?text=PM', subjects: ['Saúde & Beleza', 'Música'], instagram: { handle: 'patriciamarxoficial', followers: 220000, engagement: 1.4, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Bruna Tavares', imageUrl: 'https://placehold.co/150x150/fbcfe8/ffffff?text=BT', subjects: ['Saúde & Beleza'], instagram: { handle: 'brunatavares', followers: 2300000, engagement: 4.4, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'BrunaTavares', followers: 1200000, engagement: 2.9, url: '#' } },
+                { name: 'Agustin Fernandez', imageUrl: 'https://placehold.co/150x150/d9f99d/ffffff?text=AF', subjects: ['Saúde & Beleza'], instagram: { handle: 'agustinofficial', followers: 7100000, engagement: 1.8, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Niina Secrets', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Saúde & Beleza'], instagram: { handle: 'niinasecrets', followers: 4200000, engagement: 3.7, url: '#' }, tiktok: { handle: 'niinasecrets', followers: 2200000, engagement: 3.9, url: '#' }, youtube: { handle: 'NiinaSecrets', followers: 3300000, engagement: 2.4, url: '#' } },
+                { name: 'Camila Coelho', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_m-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Saúde & Beleza', 'Moda'], instagram: { handle: 'camilacoelho', followers: 9500000, engagement: 1.4, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'CamilaCoelho', followers: 4200000, engagement: 0.9, url: '#' } },
+                { name: 'Fabi Santina', imageUrl: 'https://placehold.co/150x150/e0e7ff/ffffff?text=FS', subjects: ['Saúde & Beleza'], instagram: { handle: 'fabisantina', followers: 1600000, engagement: 3.0, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'FabiSantina', followers: 2200000, engagement: 2.1, url: '#' } },
+                { name: 'Karol Pinheiro', imageUrl: 'https://placehold.co/150x150/fae8ff/ffffff?text=KP', subjects: ['Saúde & Beleza'], instagram: { handle: 'karolpinheiro', followers: 1100000, engagement: 2.8, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'KarolPinheiro', followers: 1100000, engagement: 1.9, url: '#' } },
+                { name: 'Rayza Nicácio', imageUrl: 'https://placehold.co/150x150/dcfce7/ffffff?text=RN', subjects: ['Saúde & Beleza'], instagram: { handle: 'rayzanicacio', followers: 1300000, engagement: 3.2, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'RayzaNicacio', followers: 2200000, engagement: 2.4, url: '#' } },
+                { name: 'Lu Ferreira', imageUrl: 'https://placehold.co/150x150/fef3c7/ffffff?text=LF', subjects: ['Saúde & Beleza', 'Moda'], instagram: { handle: 'chatadegalocha', followers: 850000, engagement: 1.9, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'ChataDeGalocha', followers: 550000, engagement: 1.4, url: '#' } },
+                { name: 'Jade Seba', imageUrl: 'https://placehold.co/150x150/ffedd5/ffffff?text=JS', subjects: ['Saúde & Beleza', 'Lifestyle'], instagram: { handle: 'jadeseba', followers: 1400000, engagement: 2.7, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'JadeSeba', followers: 550000, engagement: 1.9, url: '#' } },
+                { name: 'Guid Monteiro', imageUrl: 'https://placehold.co/150x150/fee2e2/ffffff?text=GM', subjects: ['Bahia', 'Lifestyle'], instagram: { handle: 'guidmonteiro', followers: 320000, engagement: 4.9, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Francine Oliveira', imageUrl: 'https://placehold.co/150x150/e0f2fe/ffffff?text=FO', subjects: ['Bahia', 'Fitness'], instagram: { handle: 'francineoliveira.personal', followers: 95000, engagement: 6.0, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Vanessa Brunt', imageUrl: 'https://placehold.co/150x150/f3e8ff/ffffff?text=VB', subjects: ['Bahia', 'Lifestyle'], instagram: { handle: 'vanessabrunt', followers: 110000, engagement: 4.7, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Livia Nunes', imageUrl: 'https://placehold.co/150x150/dbeafe/ffffff?text=LN', subjects: ['Bahia', 'Moda'], instagram: { handle: 'livianunes', followers: 160000, engagement: 5.4, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Carol Barreto', imageUrl: 'https://placehold.co/150x150/e0e7ff/ffffff?text=CB', subjects: ['Bahia', 'Moda'], instagram: { handle: 'carolbarretooficial', followers: 85000, engagement: 4.1, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Dandara Pagu', imageUrl: 'https://placehold.co/150x150/fae8ff/ffffff?text=DP', subjects: ['Bahia', 'Lifestyle'], instagram: { handle: 'dandarapagu', followers: 130000, engagement: 5.9, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Leo Santana', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Bahia', 'Música'], instagram: { handle: 'leosantana', followers: 11000000, engagement: 2.4, url: '#' }, tiktok: { handle: 'leosantana', followers: 8500000, engagement: 2.9, url: '#' }, youtube: { handle: 'LeoSantana', followers: 5500000, engagement: 1.9, url: '#' } },
+                { name: 'Lore Improta', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_m-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Bahia', 'Dança', 'Lifestyle'], instagram: { handle: 'loreimprota', followers: 8500000, engagement: 3.7, url: '#' }, tiktok: { handle: 'loreimprota', followers: 5500000, engagement: 4.4, url: '#' }, youtube: { handle: 'LoreImprota', followers: 2300000, engagement: 2.9, url: '#' } },
+                { name: 'Tia Má', imageUrl: 'https://placehold.co/150x150/dcfce7/ffffff?text=TM', subjects: ['Bahia', 'Humor', 'Ativismo'], instagram: { handle: 'tiamaoficial', followers: 550000, engagement: 6.9, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Jotapê', imageUrl: 'https://placehold.co/150x150/fef3c7/ffffff?text=J', subjects: ['Bahia', 'Humor'], instagram: { handle: 'jotapeofc', followers: 1100000, engagement: 8.0, url: '#' }, tiktok: { handle: 'jotapeofc', followers: 2200000, engagement: 8.4, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Camilla Pudim', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_k-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Bahia', 'Humor', 'Beleza'], instagram: { handle: 'camillapudim', followers: 2500000, engagement: 8.9, url: '#' }, tiktok: { handle: 'camillapudim', followers: 11000000, engagement: 9.9, url: '#' }, youtube: { handle: 'CamillaPudim', followers: 1200000, engagement: 6.9, url: '#' } },
+                { name: 'Spider Slack', imageUrl: 'https://placehold.co/150x150/ffedd5/ffffff?text=SS', subjects: ['Bahia', 'Esportes'], instagram: { handle: 'spiderslack', followers: 1700000, engagement: 7.4, url: '#' }, tiktok: { handle: 'spiderslack', followers: 5500000, engagement: 7.9, url: '#' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Emilly Vick', imageUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_m-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j_j-j=s176-c-k-c0x00ffffff-no-rj', subjects: ['Bahia', 'Humor'], instagram: { handle: 'emillyvick', followers: 1200000, engagement: 8.7, url: '#' }, tiktok: { handle: 'emillyvickof', followers: 16000000, engagement: 9.4, url: '#' }, youtube: { handle: 'EmillyVick', followers: 11000000, engagement: 7.4, url: '#' } },
+                { name: 'Marcelo Vieira', imageUrl: 'https://placehold.co/150x150/fee2e2/ffffff?text=MV', subjects: ['Bahia', 'Lifestyle'], instagram: { handle: 'marcelovieira', followers: 850000, engagement: 4.0, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Thayná Oliveira', imageUrl: 'https://placehold.co/150x150/e0f2fe/ffffff?text=TO', subjects: ['Bahia', 'Lifestyle'], instagram: { handle: 'thaynaoliveira', followers: 110000, engagement: 5.2, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Bruna Barreto', imageUrl: 'https://placehold.co/150x150/f3e8ff/ffffff?text=BB', subjects: ['Bahia', 'Moda'], instagram: { handle: 'brunabarretoblog', followers: 95000, engagement: 4.6, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Jéssica Senra', imageUrl: 'https://placehold.co/150x150/dbeafe/ffffff?text=JS', subjects: ['Bahia', 'Jornalismo'], instagram: { handle: 'jessicasenra', followers: 320000, engagement: 3.4, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Tati Dias', imageUrl: 'https://placehold.co/150x150/e0e7ff/ffffff?text=TD', subjects: ['Bahia', 'Lifestyle'], instagram: { handle: 'tatidiasoficial', followers: 260000, engagement: 3.9, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Nara Almeida', imageUrl: 'https://placehold.co/150x150/fae8ff/ffffff?text=NA', subjects: ['Bahia', 'Lifestyle'], instagram: { handle: 'naraalmeidaoficial', followers: 210000, engagement: 6.1, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Léo Souza', imageUrl: 'https://placehold.co/150x150/dcfce7/ffffff?text=LS', subjects: ['Bahia', 'Fitness'], instagram: { handle: 'leosouzafit', followers: 160000, engagement: 5.7, url: '#' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
                 { name: 'Nátaly Neri', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=NN', subjects: ['Sustentabilidade', 'Moda'], instagram: { handle: 'natalyneri', followers: 500000, engagement: 4.8, url: 'https://www.instagram.com/natalyneri/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
                 { name: 'Cristal Muniz', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=CM', subjects: ['Sustentabilidade'], instagram: { handle: 'umavidasemlixo', followers: 200000, engagement: 3.9, url: 'https://www.instagram.com/umavidasemlixo/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
                 { name: 'Luisa Mell', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=LM', subjects: ['Sustentabilidade', 'Ativismo', 'Veganismo'], instagram: { handle: 'luisamell', followers: 3000000, engagement: 5.5, url: 'https://www.instagram.com/luisamell/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
@@ -144,7 +268,7 @@
                 { name: 'Meninos Rei', imageUrl: 'https://placehold.co/150x150/10b981/ffffff?text=MR', subjects: ['Sustentabilidade', 'Moda'], instagram: { handle: 'meninosrei', followers: 80000, engagement: 4.5, url: 'https://www.instagram.com/meninosrei/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } }
             ];
 
-            // --- LÓGICA DA APLICAÇÃO (sem alterações) ---
+            // --- LÓGICA DA APLICAÇÃO ---
             let currentPlatform = 'instagram';
             let currentCategory = 'all';
             let currentSubject = 'all';
@@ -162,6 +286,22 @@
             const pageInfo = document.getElementById('page-info');
             const paginationControls = document.getElementById('pagination-controls');
 
+            const subjectColors = {
+                'Esportes': 'bg-red-500', 'Lifestyle': 'bg-pink-500', 'Humor': 'bg-yellow-500',
+                'Música': 'bg-purple-500', 'Entretenimento': 'bg-indigo-500', 'Finanças': 'bg-green-600',
+                'Investimentos': 'bg-green-700', 'Empreendedorismo': 'bg-blue-600', 'Games': 'bg-gray-800 border border-purple-500',
+                'Beleza': 'bg-rose-500', 'Família': 'bg-cyan-500', 'Moda': 'bg-fuchsia-500',
+                'Maternidade': 'bg-sky-400', 'Ilustração': 'bg-orange-500', 'Saúde & Beleza': 'bg-pink-400',
+                'Fitness': 'bg-lime-500', 'Jornalismo': 'bg-gray-500', 'Bahia': 'bg-amber-500',
+                'Dança': 'bg-violet-500', 'Ativismo': 'bg-red-600', 'Culinária': 'bg-orange-600',
+                'Viagem': 'bg-teal-500', 'Sustentabilidade': 'bg-emerald-500', 'Veganismo': 'bg-green-500',
+                'Design': 'bg-slate-500', 'default': 'bg-gray-600'
+            };
+
+            function getSubjectColor(subject) {
+                const color = subjectColors[subject] || subjectColors['default'];
+                return color.includes('yellow') || color.includes('lime') ? `${color} text-black` : `${color} text-white`;
+            }
 
             function formatFollowers(num) {
                 if (num >= 1000000) return (num / 1000000).toFixed(1).replace('.0', '') + 'M';
@@ -170,7 +310,7 @@
             }
 
             function getCategory(followers) {
-                if (followers > 7000000) return { name: 'Famoso', color: 'bg-blue-600' };
+                if (followers > 7000000) return { name: 'Influencers', color: 'bg-blue-600' };
                 if (followers >= 1000000 && followers <= 6000000) return { name: 'Estrela', color: 'bg-purple-600' };
                 return { name: 'Middle', color: 'bg-teal-600' };
             }
@@ -231,8 +371,8 @@
                     if (currentCategory === 'estrela') {
                         title = 'Top 10 Estrelas';
                         // A lógica de Top 10 é aplicada implicitamente pela paginação
-                    } else if (currentCategory === 'famoso') {
-                        title = 'Top 10 Famosos';
+                    } else if (currentCategory === 'influencers') {
+                        title = 'Top 10 Influencers';
                         // A lógica de Top 10 é aplicada implicitamente pela paginação
                     } else if (currentCategory === 'middle') {
                         title = 'Influenciadores Middle';
@@ -262,7 +402,7 @@
                     const category = getCategory(platformData.followers);
                     const initials = influencer.name.split(' ').map(n => n[0]).join('');
                     
-                    const subjectsHTML = influencer.subjects.map(s => `<span class="bg-gray-600 text-gray-300 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">${s}</span>`).join('');
+                    const subjectsHTML = influencer.subjects.map(s => `<span class="${getSubjectColor(s)} text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">${s}</span>`).join('');
 
                     const cardHTML = `
                         <div class="card rounded-lg overflow-hidden p-4 flex flex-col text-center">
@@ -299,9 +439,14 @@
             platformFilterContainer.addEventListener('click', (e) => {
                 const button = e.target.closest('button');
                 if (!button) return;
+                
+                platformFilterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('instagram-active', 'tiktok-active', 'youtube-active');
+                });
+                
                 currentPlatform = button.dataset.platform;
-                platformFilterContainer.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+                button.classList.add(`${currentPlatform}-active`);
+                
                 handleFilterChange();
             });
 
@@ -341,6 +486,8 @@
 
 </body>
 </html>
+
+
 
 
 
