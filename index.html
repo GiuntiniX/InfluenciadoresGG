@@ -104,9 +104,11 @@
             <p class="text-lg text-gray-400">Classificação por seguidores, engajamento e assunto.</p>
         </header>
 
+        <!-- Filtros -->
         <div class="sticky top-4 z-10 flex flex-col items-center gap-6 mb-10">
             <div class="filter-group w-full max-w-4xl">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <!-- Filtro de Plataforma -->
                     <div class="flex-1">
                         <p class="text-center font-semibold mb-3 text-gray-300">Rede Social:</p>
                         <div id="platform-filter-container" class="flex flex-wrap justify-center gap-3">
@@ -124,6 +126,7 @@
                             </button>
                         </div>
                     </div>
+                    <!-- Filtro de Categoria -->
                     <div class="flex-1">
                         <p class="text-center font-semibold mb-3 text-gray-300">Categoria:</p>
                         <div id="category-filter-container" class="grid grid-cols-2 gap-3">
@@ -148,7 +151,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="flex-1">
+                    <!-- Filtro de Assunto -->
+                     <div class="flex-1">
                         <p class="text-center font-semibold mb-3 text-gray-300">Assunto:</p>
                         <div class="relative w-full">
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -158,18 +162,23 @@
                             </div>
                             <select id="subject-filter-select" class="subject-select w-full p-2 pl-10 rounded-lg">
                                 <option value="all">Todos os Assuntos</option>
-                                </select>
+                                <!-- Opções de assunto serão inseridas aqui -->
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Título Dinâmico dos Resultados -->
         <h2 id="results-title" class="text-2xl font-bold text-center text-white mb-8"></h2>
         
+        <!-- Grade de Influenciadores -->
         <div id="influencer-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 min-h-[500px]">
-            </div>
+            <!-- Os cards dos influenciadores serão inseridos aqui via JavaScript -->
+        </div>
         
+        <!-- Controles de Paginação -->
         <div id="pagination-controls" class="flex items-center justify-center mt-10 space-x-4">
             <button id="prev-page" class="pagination-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">&lt; Anterior</button>
             <span id="page-info" class="font-semibold text-gray-300"></span>
@@ -179,7 +188,8 @@
 
         <footer class="text-center mt-12 text-gray-500">
             <p class="mb-2">Ferramenta criada por: <a href="mailto:guilherme.giuntini@telefonica.com" class="text-purple-400 hover:underline">Guilherme Giuntini</a></p>
-            <p>Dados de seguidores e engajamento são para fins de demonstração.</p>
+            <p class="text-gray-300">Nota: Os números são aproximados e não é uma atualização automática.</p>
+            <p class="text-gray-300">O objetivo desta lista é fornecer uma amostra de qualidade, e não um ranking exaustivo.</p>
         </footer>
     </div>
 
@@ -187,7 +197,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             // --- BASE DE DADOS COMPLETA E ATUALIZADA ---
             const influencers = [
-                 { name: 'Neymar Jr', subjects: ['Esportes', 'Lifestyle'], instagram: { handle: 'neymarjr', followers: 230100000, engagement: 0.80, url: 'https://www.instagram.com/neymarjr/' }, tiktok: { handle: 'neymarjr', followers: 35000000, engagement: 1.15, url: 'https://www.tiktok.com/@neymarjr' }, youtube: { handle: 'NeymarJr', followers: 4500000, engagement: 0.45, url: 'https://www.youtube.com/user/neymarjr' } },
+                // Generalistas e Celebridades (Dados de 14/09/2025)
+                { name: 'Neymar Jr.', subjects: ['Esportes', 'Lifestyle'], instagram: { handle: 'neymarjr', followers: 230100000, engagement: 0.80, url: 'https://www.instagram.com/neymarjr/' }, tiktok: { handle: 'neymarjr', followers: 35000000, engagement: 1.15, url: 'https://www.tiktok.com/@neymarjr' }, youtube: { handle: 'NeymarJr', followers: 4500000, engagement: 0.45, url: 'https://www.youtube.com/user/neymarjr' } },
                 { name: 'Ronaldinho Gaúcho', subjects: ['Esportes', 'Lifestyle'], instagram: { handle: 'ronaldinho', followers: 76800000, engagement: 0.45, url: 'https://www.instagram.com/ronaldinho/' }, tiktok: { handle: 'ronaldinho', followers: 21300000, engagement: 1.80, url: 'https://www.tiktok.com/@ronaldinho' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
                 { name: 'Anitta', subjects: ['Música', 'Entretenimento', 'Lifestyle'], instagram: { handle: 'anitta', followers: 67200000, engagement: 1.10, url: 'https://www.instagram.com/anitta/' }, tiktok: { handle: 'anitta', followers: 39800000, engagement: 2.40, url: 'https://www.tiktok.com/@anitta' }, youtube: { handle: 'Anitta', followers: 19800000, engagement: 0.85, url: 'https://www.youtube.com/@Anitta' } },
                 { name: 'Whindersson Nunes', subjects: ['Humor', 'Música', 'Entretenimento'], instagram: { handle: 'whinderssonnunes', followers: 59800000, engagement: 1.50, url: 'https://www.instagram.com/whinderssonnunes/' }, tiktok: { handle: 'whinderssonnunes', followers: 42300000, engagement: 3.0, url: 'https://www.tiktok.com/@whinderssonnunes' }, youtube: { handle: 'whinderssonnunes', followers: 45200000, engagement: 2.75, url: 'https://www.youtube.com/user/whinderssonnunes' } },
@@ -261,7 +272,46 @@
                 { name: 'David Luiz', subjects: ['Esportes'], instagram: { handle: 'davidluiz_4', followers: 8500000, engagement: 0.6, url: 'https://www.instagram.com/davidluiz_4/' }, tiktok: { handle: 'davidluiz_4', followers: 200000, engagement: 0.9, url: 'https://www.tiktok.com/@davidluiz_4' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
                 { name: 'Kelly Key', subjects: ['Música', 'Fitness'], instagram: { handle: 'oficialkellykey', followers: 8100000, engagement: 0.7, url: 'https://www.instagram.com/oficialkellykey/' }, tiktok: { handle: 'oficialkellykey', followers: 100000, engagement: 1.0, url: 'https://www.tiktok.com/@oficialkellykey' }, youtube: { handle: 'KellyKey', followers: 500000, engagement: 0.6, url: 'https://www.youtube.com/@KellyKey' } },
                 { name: 'Erika Januza', subjects: ['Entretenimento'], instagram: { handle: 'erikajanuza', followers: 7900000, engagement: 0.8, url: 'https://www.instagram.com/erikajanuza/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
-                { name: 'Hugo Gloss', subjects: ['Entretenimento'], instagram: { handle: 'hugogloss', followers: 7500000, engagement: 0.4, url: 'https://www.instagram.com/hugogloss/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } }
+                { name: 'Hugo Gloss', subjects: ['Entretenimento'], instagram: { handle: 'hugogloss', followers: 7500000, engagement: 0.4, url: 'https://www.instagram.com/hugogloss/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Luara Fonseca', subjects: ['Lifestyle', 'Dança'], instagram: { handle: 'luara', followers: 7100000, engagement: 2.5, url: 'https://www.instagram.com/luara/' }, tiktok: { handle: 'luara', followers: 33100000, engagement: 3.5, url: 'https://www.tiktok.com/@luara' }, youtube: { handle: 'Luara', followers: 5000000, engagement: 2.0, url: 'https://www.youtube.com/@Luara' } },
+                { name: 'Rico Melquiades', subjects: ['Humor', 'Entretenimento'], instagram: { handle: 'ricomelquiades', followers: 6100000, engagement: 3.0, url: 'https://www.instagram.com/ricomelquiades/' }, tiktok: { handle: 'ricomelquiades', followers: 6800000, engagement: 4.0, url: 'https://www.tiktok.com/@ricomelquiades' }, youtube: { handle: 'RicoMelquiades', followers: 3100000, engagement: 2.5, url: 'https://www.youtube.com/@RicoMelquiades' } },
+                { name: 'Bruno Gagliasso', subjects: ['Entretenimento'], instagram: { handle: 'brunogagliasso', followers: 5500000, engagement: 0.7, url: 'https://www.instagram.com/brunogagliasso/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Gracyanne Barbosa', subjects: ['Fitness', 'Lifestyle'], instagram: { handle: 'graoficial', followers: 5100000, engagement: 1.5, url: 'https://www.instagram.com/graoficial/' }, tiktok: { handle: 'graoficial', followers: 8500000, engagement: 2.0, url: 'https://www.tiktok.com/@graoficial' }, youtube: { handle: 'gracyannebarbosa', followers: 1500000, engagement: 1.0, url: 'https://www.youtube.com/@gracyannebarbosa' } },
+                { name: 'Túlio Rocha', subjects: ['Lifestyle'], instagram: { handle: 'tulio.rocha', followers: 4900000, engagement: 1.8, url: 'https://www.instagram.com/tulio.rocha/' }, tiktok: { handle: 'tulio.rocha', followers: 2000000, engagement: 2.5, url: 'https://www.tiktok.com/@tulio.rocha' }, youtube: { handle: 'tuliorocha', followers: 1200000, engagement: 1.2, url: 'https://www.youtube.com/@tuliorocha' } },
+                { name: 'Kéfera Buchmann', subjects: ['Entretenimento', 'Humor'], instagram: { handle: 'kefera', followers: 4100000, engagement: 1.5, url: 'https://www.instagram.com/kefera/' }, tiktok: { handle: 'kefera', followers: 12100000, engagement: 2.2, url: 'https://www.tiktok.com/@kefera' }, youtube: { handle: '5incominutos', followers: 9500000, engagement: 1.8, url: 'https://www.youtube.com/@5incominutos' } },
+                { name: 'yulla', subjects: ['Games'], instagram: { handle: 'yulla', followers: 700000, engagement: 6.0, url: 'https://www.instagram.com/yulla/' }, tiktok: { handle: 'yulla', followers: 1000000, engagement: 7.0, url: 'https://www.tiktok.com/@yulla' }, youtube: { handle: 'yulla', followers: 200000, engagement: 5.5, url: 'https://www.youtube.com/@yulla' } },
+                { name: 'Pimpimenta', subjects: ['Games'], instagram: { handle: 'pimpimenta', followers: 900000, engagement: 4.5, url: 'https://www.instagram.com/pimpimenta/' }, tiktok: { handle: 'pimpimenta', followers: 300000, engagement: 5.2, url: 'https://www.tiktok.com/@pimpimenta' }, youtube: { handle: 'pimpimenta', followers: 800000, engagement: 4.0, url: 'https://www.youtube.com/@pimpimenta' } },
+                { name: 'Mount', subjects: ['Games'], instagram: { handle: 'mount', followers: 800000, engagement: 4.0, url: 'https://www.instagram.com/mount/' }, tiktok: { handle: 'mount', followers: 600000, engagement: 5.0, url: 'https://www.tiktok.com/@mount' }, youtube: { handle: 'mount', followers: 500000, engagement: 3.5, url: 'https://www.youtube.com/@mount' } },
+                { name: 'Jean Mago', subjects: ['Games'], instagram: { handle: 'jeanmago.gg', followers: 400000, engagement: 5.2, url: 'https://www.instagram.com/jeanmago.gg/' }, tiktok: { handle: 'jeanmago.gg', followers: 600000, engagement: 6.0, url: 'https://www.tiktok.com/@jeanmago.gg' }, youtube: { handle: 'jeanmago', followers: 400000, engagement: 4.8, url: 'https://www.youtube.com/@jeanmago' } },
+                { name: 'Smzinho', subjects: ['Games', 'Humor'], instagram: { handle: 'smzinho', followers: 500000, engagement: 3.2, url: 'https://www.instagram.com/smzinho/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'smzinho', followers: 1100000, engagement: 2.8, url: 'https://www.youtube.com/@smzinho' } },
+                { name: 'Gaveta', subjects: ['Tecnologia e Ciência', 'Edição de Vídeo'], instagram: { handle: 'gaveta', followers: 755000, engagement: 4.0, url: 'https://www.instagram.com/gaveta/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'gaveta', followers: 1000000, engagement: 3.5, url: 'https://www.youtube.com/@gaveta' } },
+                { name: 'Filipe Deschamps', subjects: ['Tecnologia e Ciência', 'Programação'], instagram: { handle: 'filipedeschamps', followers: 620000, engagement: 5.0, url: 'https://www.instagram.com/filipedeschamps/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'FilipeDeschamps', followers: 1000000, engagement: 4.5, url: 'https://www.youtube.com/@FilipeDeschamps' } },
+                { name: 'Pece Siqueira', subjects: ['Humor', 'Entretenimento'], instagram: { handle: 'pecesiqueira', followers: 580000, engagement: 2.5, url: 'https://www.instagram.com/pecesiqueira/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'pecesiqueira', followers: 2000000, engagement: 2.0, url: 'https://www.youtube.com/@pecesiqueira' } },
+                { name: 'Emilio Fraia', subjects: ['Literatura', 'Cultura'], instagram: { handle: 'emilio_fraia', followers: 210000, engagement: 3.0, url: 'https://www.instagram.com/emilio_fraia/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Nath Finanças', subjects: ['Finanças'], instagram: { handle: 'nathfinancas', followers: 950000, engagement: 4.8, url: 'https://www.instagram.com/nathfinancas/' }, tiktok: { handle: 'nathfinancas', followers: 1000000, engagement: 5.2, url: 'https://www.tiktok.com/@nathfinancas' }, youtube: { handle: 'NathFinancas', followers: 500000, engagement: 4.0, url: 'https://www.youtube.com/@NathFinancas' } },
+                { name: 'Raul Sena', subjects: ['Finanças', 'Investimentos'], instagram: { handle: 'raulsena', followers: 850000, engagement: 4.5, url: 'https://www.instagram.com/raulsena/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'InvestidorSardinha', followers: 1000000, engagement: 4.2, url: 'https://www.youtube.com/@InvestidorSardinha' } },
+                { name: 'Mirna Borges', subjects: ['Finanças', 'Investimentos'], instagram: { handle: 'mirna_borges', followers: 780000, engagement: 4.2, url: 'https://www.instagram.com/mirna_borges/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'EconoMirna', followers: 1000000, engagement: 4.0, url: 'https://www.youtube.com/@EconoMirna' } },
+                { name: 'Lívia da Gema', subjects: ['Lifestyle', 'Viagem'], instagram: { handle: 'liviadagema', followers: 350000, engagement: 5.5, url: 'https://www.instagram.com/liviadagema/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Gabi de Pretas', subjects: ['Lifestyle', 'Viagem', 'Ativismo'], instagram: { handle: 'gabidepretas', followers: 280000, engagement: 6.0, url: 'https://www.instagram.com/gabidepretas/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Viajar para Viver', subjects: ['Viagem'], instagram: { handle: 'viajarparaviver', followers: 150000, engagement: 5.0, url: 'https://www.instagram.com/viajarparaviver/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Vittor Fernando', subjects: ['Humor'], instagram: { handle: 'vittorfernando', followers: 2000000, engagement: 5.0, url: 'https://www.instagram.com/vittorfernando/' }, tiktok: { handle: 'vittorfernando', followers: 980000, engagement: 6.0, url: 'https://www.tiktok.com/@vittorfernando' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Leleocunha', subjects: ['Humor'], instagram: { handle: 'leleocunha', followers: 500000, engagement: 4.5, url: 'https://www.instagram.com/leleocunha/' }, tiktok: { handle: 'leleocunha', followers: 850000, engagement: 5.5, url: 'https://www.tiktok.com/@leleocunha' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Jess Bonfioli', subjects: ['Humor'], instagram: { handle: 'jess.bonfioli', followers: 400000, engagement: 5.2, url: 'https://www.instagram.com/jess.bonfioli/' }, tiktok: { handle: 'jess.bonfioli', followers: 720000, engagement: 6.1, url: 'https://www.tiktok.com/@jess.bonfioli' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Professor Noslen', subjects: ['Educação'], instagram: { handle: 'professornoslen', followers: 1000000, engagement: 4.0, url: 'https://www.instagram.com/professornoslen/' }, tiktok: { handle: 'professornoslen', followers: 995000, engagement: 5.0, url: 'https://www.tiktok.com/@professornoslen' }, youtube: { handle: 'ProfessorNoslen', followers: 3000000, engagement: 3.5, url: 'https://www.youtube.com/@ProfessorNoslen' } },
+                { name: 'Débora Aladim', subjects: ['Educação'], instagram: { handle: 'deboraladim', followers: 1000000, engagement: 4.2, url: 'https://www.instagram.com/deboraladim/' }, tiktok: { handle: 'deboraladim', followers: 880000, engagement: 5.1, url: 'https://www.tiktok.com/@deboraladim' }, youtube: { handle: 'DeboraAladim', followers: 2000000, engagement: 3.8, url: 'https://www.youtube.com/@DeboraAladim' } },
+                { name: 'Manual do Mundo', subjects: ['Educação', 'Ciência', 'Curiosidades'], instagram: { handle: 'manualdomundo', followers: 4000000, engagement: 1.5, url: 'https://www.instagram.com/manualdomundo/' }, tiktok: { handle: 'manualdomundo', followers: 950000, engagement: 2.0, url: 'https://www.tiktok.com/@manualdomundo' }, youtube: { handle: 'ManualdoMundo', followers: 6200000, engagement: 1.2, url: 'https://www.youtube.com/@ManualdoMundo' } },
+                { name: 'Patrício Carvalho', subjects: ['Culinária'], instagram: { handle: 'patriciocarvalho21', followers: 2000000, engagement: 5.0, url: 'https://www.instagram.com/patriciocarvalho21/' }, tiktok: { handle: 'patriciocarvalho21', followers: 990000, engagement: 6.0, url: 'https://www.tiktok.com/@patriciocarvalho21' }, youtube: { handle: 'PatricioCarvalho', followers: 1000000, engagement: 4.5, url: 'https://www.youtube.com/@PatricioCarvalho' } },
+                { name: 'Delegado da Culinária', subjects: ['Culinária'], instagram: { handle: 'delegado.da.culinaria', followers: 500000, engagement: 4.8, url: 'https://www.instagram.com/delegado.da.culinaria/' }, tiktok: { handle: 'delegado.da.culinaria', followers: 800000, engagement: 5.8, url: 'https://www.tiktok.com/@delegado.da.culinaria' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Thigas', subjects: ['Culinária'], instagram: { handle: 'thigas', followers: 400000, engagement: 5.5, url: 'https://www.instagram.com/thigas/' }, tiktok: { handle: 'thigas', followers: 750000, engagement: 6.5, url: 'https://www.tiktok.com/@thigas' }, youtube: { handle: '', followers: 0, engagement: 0, url: '' } },
+                { name: 'Tese Onze', subjects: ['Análise Social', 'Política'], instagram: { handle: 'teseonze', followers: 300000, engagement: 4.0, url: 'https://www.instagram.com/teseonze/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'TeseOnze', followers: 980000, engagement: 3.5, url: 'https://www.youtube.com/@TeseOnze' } },
+                { name: 'Normose', subjects: ['Análise Social', 'Cultura'], instagram: { handle: 'normose', followers: 200000, engagement: 4.2, url: 'https://www.instagram.com/normose/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'Normose', followers: 750000, engagement: 3.8, url: 'https://www.youtube.com/@Normose' } },
+                { name: 'Meteoro Brasil', subjects: ['Análise Social', 'Jornalismo'], instagram: { handle: 'meteorobr', followers: 100000, engagement: 3.5, url: 'https://www.instagram.com/meteorobr/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'meteorobrasil', followers: 995000, engagement: 3.0, url: 'https://www.youtube.com/@meteorobrasil' } },
+                { name: 'Max Valarezo', subjects: ['Cinema e Séries'], instagram: { handle: 'maxvalarezo', followers: 100000, engagement: 4.5, url: 'https://www.instagram.com/maxvalarezo/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'MaxValarezo', followers: 920000, engagement: 4.0, url: 'https://www.youtube.com/@MaxValarezo' } },
+                { name: 'PH Santos', subjects: ['Cinema e Séries'], instagram: { handle: 'phsantos', followers: 150000, engagement: 4.2, url: 'https://www.instagram.com/phsantos/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'phsantos', followers: 850000, engagement: 3.8, url: 'https://www.youtube.com/@phsantos' } },
+                { name: 'Carol Moreira', subjects: ['Cinema e Séries'], instagram: { handle: 'carolmoreira', followers: 500000, engagement: 4.8, url: 'https://www.instagram.com/carolmoreira/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'carolmoreira', followers: 820000, engagement: 4.2, url: 'https://www.youtube.com/@carolmoreira' } },
+                { name: 'Ciência Todo Dia', subjects: ['Ciência', 'Educação'], instagram: { handle: 'cienciatododia', followers: 300000, engagement: 5.0, url: 'https://www.instagram.com/cienciatododia/' }, tiktok: { handle: 'cienciatododia', followers: 500000, engagement: 5.5, url: 'https://www.tiktok.com/@cienciatododia' }, youtube: { handle: 'CienciaTodoDia', followers: 990000, engagement: 4.5, url: 'https://www.youtube.com/@CienciaTodoDia' } },
+                { name: 'Canal do Pirula', subjects: ['Ciência', 'Educação'], instagram: { handle: 'pirula', followers: 200000, engagement: 4.5, url: 'https://www.instagram.com/pirula/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'Pirula', followers: 950000, engagement: 4.0, url: 'https://www.youtube.com/@Pirula' } },
+                { name: 'Bláblálogia', subjects: ['Ciência', 'Educação'], instagram: { handle: 'blablalogia', followers: 100000, engagement: 4.2, url: 'https://www.instagram.com/blablalogia/' }, tiktok: { handle: '', followers: 0, engagement: 0, url: '' }, youtube: { handle: 'Blablalogia', followers: 880000, engagement: 3.8, url: 'https://www.youtube.com/@Blablalogia' } }
             ];
 
             // --- LÓGICA DA APLICAÇÃO ---
@@ -293,7 +343,10 @@
                 'Viagem': 'bg-teal-800', 'Sustentabilidade': 'bg-emerald-800', 'Veganismo': 'bg-green-800',
                 'Design': 'bg-slate-700', 'default': 'bg-gray-700', 'Arte': 'bg-stone-700',
                 'Curiosidades': 'bg-sky-700', 'Infantil': 'bg-yellow-600', 'Automotivo': 'bg-slate-800',
-                'Religião': 'bg-amber-700', 'LGBTQIA+': 'bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500'
+                'Religião': 'bg-amber-700', 'LGBTQIA+': 'bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500',
+                'Tecnologia e Ciência': 'bg-sky-800', 'Edição de Vídeo': 'bg-indigo-700', 'Programação': 'bg-blue-900',
+                'Literatura': 'bg-amber-900', 'Cultura': 'bg-rose-900', 'Análise Social': 'bg-slate-600', 'Política': 'bg-gray-600',
+                'Cinema e Séries': 'bg-red-700', 'Educação': 'bg-cyan-700'
             };
 
             function getSubjectColor(subject) {
@@ -484,3 +537,7 @@
 
 </body>
 </html>
+
+
+
+
